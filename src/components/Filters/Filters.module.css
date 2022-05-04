@@ -21,6 +21,14 @@
     flex-wrap: wrap;
 }
 
+.box2 input
+{
+    margin-top: 20px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 .topbar
 {
     display: flex;

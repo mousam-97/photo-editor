@@ -62,6 +62,7 @@ const DEFAULT_DATA = [
 function Dashboard() {
     const [Image, setImage] = useState(1);
     const [filterData, setFilterData] = useState(DEFAULT_DATA);
+    const [textOverlay, setTextOverlay] = useState("");
 
     console.log(filterData);
 
@@ -70,22 +71,17 @@ function Dashboard() {
         setImage(prev => prev + 1);
     }
 
-    function handleClearFilter()
-    {
+    function handleClearFilter() {
         setFilterData(DEFAULT_DATA);
     }
 
     let imageApi = `https://source.unsplash.com/random/${Image}`;
-    // useEffect(() => {
-
-
-    // }, [Image]);
 
     return (
-        <Data.Provider value={{ filterData, setFilterData, handleClearFilter}}>
+        <Data.Provider value={{ filterData, setFilterData, handleClearFilter, textOverlay, setTextOverlay }}>
             <div className={Style.dashboard}>
                 <div className={Style.container1}>
-                    <ImageContainer imageApi={imageApi} handleClick = {handleClick}/>
+                    <ImageContainer imageApi={imageApi} handleClick={handleClick} />
                 </div>
                 <div className={Style.container2}>
                     <Filters />

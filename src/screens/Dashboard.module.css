@@ -25,5 +25,6 @@
 }
 .container2 {
   width: 50vw;
-  /* background-color: rgb(216, 217, 218); */
+  background-color: rgb(236, 237, 237);
+  padding-left: 80px;
 }

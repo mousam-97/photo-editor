@@ -3,7 +3,7 @@ import { Data } from "../../screens/Dashboard";
 import Style from "./ImageContainer.module.css";
 
 function ImageContainer({ imageApi, handleClick }) {
-  const { filterData } = useContext(Data);
+  const { filterData, textOverlay } = useContext(Data);
 
   function imageStyleUsingFilter() {
     const filters = filterData.map(item => {
@@ -17,9 +17,14 @@ function ImageContainer({ imageApi, handleClick }) {
 
   return (
     <div className={Style.container}>
-      <button className={Style.button} onClick={handleClick}>New Image</button>
-      <div>
+      <div className={Style.topbar}>
+        <input type="text" placeholder="Picture name" />
+        <button className={Style.button} onClick={handleClick}>New Image</button>
+      </div>
+
+      <div className={Style.image}>
         {imageApi && <img className={Style.image} style={imageStyleUsingFilter()} src={imageApi} alt="random pic" />}
+        <h4>{textOverlay}</h4>
       </div>
       <div>
         <p>Recent images</p>

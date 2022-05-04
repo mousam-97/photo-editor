@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: flex-start;
 }
 
@@ -9,4 +9,48 @@
   width: 490px;
   height: 490px;
   /* filter: grayscale(100%); */
+}
+
+.topbar
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin: 10px;
+}
+
+.topbar input
+{
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.topbar button
+{
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(85, 85, 229);
+    color: white;
+    font-size: 15px;
+}
+
+.topbar button:hover
+{
+    cursor: pointer;
+}
+
+.image
+{
+    position: relative;
+}
+
+.image h4
+{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
 }

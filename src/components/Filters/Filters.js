@@ -4,7 +4,7 @@ import Slider from "../Slider/Slider";
 import Style from "./Filters.module.css";
 
 function Filters() {
-    const { filterData, setFilterData, handleClearFilter } = useContext(Data);
+    const { filterData, setFilterData, handleClearFilter, setTextOverlay } = useContext(Data);
 
     function handleChange(e) {
         setFilterData(prev => {
@@ -34,7 +34,7 @@ function Filters() {
         <div className={Style.filters}>
             <div className={Style.topbar}>
                 <h1>Filters</h1>
-                <button onClick={handleClearFilter} className={Style.button}>Clear Filter</button>
+                <button onClick={handleClearFilter} className={Style.button}>Reset</button>
             </div>
 
             <div className={Style.container}>
@@ -44,6 +44,7 @@ function Filters() {
                 </div>
                 <div className={Style.box2}>
                     <h1>Text overlay</h1>
+                    <input type="text" onChange={(e) => setTextOverlay(e.target.value)}/>
                 </div>
 
             </div>

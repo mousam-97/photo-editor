@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useEffect, useState, createContext } from 'react';
+import { useDispatch } from "react-redux";
 import Filters from "../components/Filters/Filters";
 import ImageContainer from "../components/ImageContainer/ImageContainer";
+import { saveImage } from "../store/actions/image-actions";
 
 import Style from "./Dashboard.module.css";
 
@@ -59,29 +62,74 @@ const DEFAULT_DATA = [
     }
 ];
 
+// I have made the app with the most important features.
+// Following are the features which I can implement if required:
+// make it resonsive, abiity to move the overlay text, click an item to get previous saved image etc.
+// Here I have used both useContext and Redux for demonstration.
+
 function Dashboard() {
-    const [Image, setImage] = useState(1);
+    const [image, setImage] = useState({});
     const [filterData, setFilterData] = useState(DEFAULT_DATA);
     const [textOverlay, setTextOverlay] = useState("");
+    const [imageName, setImageName] = useState("");
 
-    console.log(filterData);
+    const dispatch = useDispatch();
 
-    function handleClick() {
-        console.log("clicked");
-        setImage(prev => prev + 1);
-    }
+    const accessKey = "of9TfZBc4s9Mm38MixFl3brmNqiK0-fbLrDWWGx6vew";
+    let api = `https://api.unsplash.com/photos/random?client_id=${accessKey}`;
+
+    const [imageURL, setImageURL] = useState(api);
 
     function handleClearFilter() {
         setFilterData(DEFAULT_DATA);
     }
 
-    let imageApi = `https://source.unsplash.com/random/${Image}`;
+    function handleNewImage() {
 
+        dispatch(saveImage([image.id, imageURL, imageName, filterData]));
+        setImageName("");
+
+        (async function () {
+            try {
+                let res = await axios.get(api);
+                setImageURL(res.data.urls.regular);
+                setImage(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        })();
+    }
+
+    useEffect(() => {
+        (async function () {
+            try {
+                let res = await axios.get(api);
+                setImageURL(res.data.urls.regular);
+                setImage(res.data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        })();
+    }, [api]);
+
+    let contextData = {
+        filterData,
+        setFilterData,
+        handleClearFilter,
+        textOverlay,
+        setTextOverlay,
+        imageURL,
+        handleNewImage,
+        imageName,
+        setImageName
+    };
     return (
-        <Data.Provider value={{ filterData, setFilterData, handleClearFilter, textOverlay, setTextOverlay }}>
+        <Data.Provider value={contextData}>
             <div className={Style.dashboard}>
                 <div className={Style.container1}>
-                    <ImageContainer imageApi={imageApi} handleClick={handleClick} />
+                    <ImageContainer />
                 </div>
                 <div className={Style.container2}>
                     <Filters />
